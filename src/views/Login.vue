@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {reactive, ref} from "vue"
-import type {LoginForm, LoginUserInfo} from "../types/userType.ts";
+import type {LoginForm} from "../types/userType.ts";
 import type {FormInstance, FormRules} from "element-plus";
 import {login} from "../api/login/login.ts";
 

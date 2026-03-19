@@ -12,7 +12,7 @@ export interface ApiResponse<T = any> {
 
 // 创建一个Axinos实例
 const service: AxiosInstance = axios.create({
-    baseURL: 'http://localhost:8888',
+    baseURL: 'http://8.163.54.158:8888',
     timeout: 10000, // 请求超时时间
     headers: { 'Content-Type': 'application/json;charset=utf-8' }
 })
@@ -48,7 +48,7 @@ service.interceptors.response.use(
         // 例如，code === 0 或 code === 20000
         if (res.code === '200') {
             // 直接返回业务数据
-            return res;
+            return response;
         } else {
             // 业务错误处理
             console.error("现在我这块应该是弹窗");
