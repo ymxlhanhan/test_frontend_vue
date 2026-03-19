@@ -48,33 +48,24 @@ service.interceptors.response.use(
         // 例如，code === 0 或 code === 20000
         if (res.code === '200') {
             // 直接返回业务数据
-            return res.data;
+            return res;
         } else {
             // 业务错误处理
-            handleBusinessError(res);
-            return Promise.reject(new Error(res.msg || 'Error'));
+            console.error("现在我这块应该是弹窗");
+            // return Promise.reject(new Error(res.msg || 'Error'));
+            return Promise.reject(res);
         }
     },
     (error: AxiosError) => {
         // HTTP 状态码错误处理
         handleHttpError(error);
+        console.log('用到我了吗');
         return Promise.reject(error);
     }
 );
 
 // --- 错误处理函数 ---
 
-/**
- * 处理业务错误（HTTP状态码为2xx，但后端返回了错误码）
- * @param res 响应体
- */
-function handleBusinessError(res: ApiResponse): void {
-    ElMessage({
-        message: res.msg || '业务处理失败',
-        type: 'error',
-        duration: 5 * 1000,
-    });
-}
 
 /**
  * 处理HTTP错误（非2xx状态码）

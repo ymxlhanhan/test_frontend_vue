@@ -2,11 +2,9 @@
 
 </script>
 
-
 <template>
-  <Common/>
-</template>
 
+</template>
 
 <style scoped>
 

@@ -7,7 +7,7 @@ export interface LoginUserInfo {
 }
 
 // 登录请求传参
-export interface LoginInfo {
+export interface LoginForm {
     account: string;
     password: string;
 }
