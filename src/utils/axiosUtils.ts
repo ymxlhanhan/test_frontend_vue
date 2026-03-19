@@ -12,11 +12,10 @@ export interface ApiResponse<T = any> {
 
 // 创建一个Axinos实例
 const service: AxiosInstance = axios.create({
-    baseURL: 'http://8.163.54.158:8888',
+    baseURL: import.meta.env.VITE_BASE_API,
     timeout: 10000, // 请求超时时间
     headers: { 'Content-Type': 'application/json;charset=utf-8' }
 })
-
 
 // --- 请求拦截器 ---
 service.interceptors.request.use(
