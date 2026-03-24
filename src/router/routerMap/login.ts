@@ -14,6 +14,7 @@ const loginRoutes: Array<RouteRecordRaw> = [
         name: 'Login',
         meta: {
             title: '登录',
+            requiresAuth: false,
         },
         component: Login
     }

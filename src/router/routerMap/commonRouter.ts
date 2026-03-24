@@ -10,6 +10,7 @@ const commonRouter: Array<RouteRecordRaw> = [
         name: 'Index',
         meta: {
             title: '首页',
+            requiresAuth: false,
         },
         component: () => import('../../views/Index.vue'),
     },
@@ -19,7 +20,8 @@ const commonRouter: Array<RouteRecordRaw> = [
         path: '/:pathMatch(.*)*',
         name: 'Not Found',
         meta: {
-            title: 'Not Found'
+            title: 'Not Found',
+            requiresAuth: false,
         },
         component: NotFound
     },
@@ -28,6 +30,7 @@ const commonRouter: Array<RouteRecordRaw> = [
         name: 'Test',
         meta: {
             title: '测试',
+            requiresAuth: true,
         },
         component: Test
     }

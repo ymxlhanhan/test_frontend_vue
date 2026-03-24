@@ -1,6 +1,7 @@
 import axios, {type AxiosError, type AxiosInstance, type AxiosRequestConfig, type AxiosResponse} from "axios";
 import {ElMessage, ElMessageBox} from "element-plus";
 import {useUserStore} from "../store/global.ts";
+import TokenManager from "./tokenUtils.ts";
 
 // 定义需要返回的数据类型
 export interface ApiResponse<T = any> {
@@ -21,12 +22,12 @@ const service: AxiosInstance = axios.create({
 service.interceptors.request.use(
     (config: AxiosRequestConfig | any) => {
         // 在发送请求前要做什么
-        // 添加token认证
-        const token = useUserStore().nowUser.token; // 假设 token 存储在 localStorage
-        if (token && config.headers) {
-            config.headers['token'] = `${token}`;
+        // 添加token
+        const userStore = useUserStore();
+        const token = userStore.token; // 假设 token 存储在 localStorage
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
         }
-
         return config;
     },
     (error: AxiosError) => {
@@ -39,26 +40,21 @@ service.interceptors.request.use(
 // --- 响应拦截器 ---
 service.interceptors.response.use(
     (response: AxiosResponse<ApiResponse>) => {
-        // 可以在这里关闭全局的 loading...
-
         const res = response.data;
 
         // 业务成功的判断标准，可以根据你后端接口的实际情况调整
         // 例如，code === 0 或 code === 20000
         if (res.code === '200') {
             // 直接返回业务数据
-            return response;
+            return Promise.resolve(res.data) as any;
         } else {
             // 业务错误处理
-            console.error("现在我这块应该是弹窗");
-            // return Promise.reject(new Error(res.msg || 'Error'));
-            return Promise.reject(res);
+            return Promise.reject(new Error(res.msg || 'Error'));
         }
     },
     (error: AxiosError) => {
         // HTTP 状态码错误处理
         handleHttpError(error);
-        console.log('用到我了吗');
         return Promise.reject(error);
     }
 );
@@ -85,7 +81,7 @@ function handleHttpError(error: AxiosError): void {
                 type: 'warning',
             }).then(() => {
                 // 清除本地存储的 token，并跳转到登录页
-                localStorage.removeItem('token');
+                TokenManager.removeToken();
                 window.location.href = '/login';
             });
             break;
