@@ -1,14 +1,22 @@
 <script setup lang="ts">
+  import {useUserStore} from "../../store/global.ts";
 
+  const userStore = useUserStore();
+  const isLogin = userStore.state;
 </script>
 
 <template>
   <el-container class="container">
     <el-header class="header">
       <div class="toolbar">
-        <router-link to="Login">
-          <el-link underline="never">
+        <router-link v-if="!isLogin" to="Login">
+          <el-link type="primary" underline="never">
             登录
+          </el-link>
+        </router-link>
+        <router-link v-if="isLogin" to="Login">
+          <el-link type="primary" underline="never">
+            用户
           </el-link>
         </router-link>
       </div>
@@ -23,6 +31,7 @@
 
 .header {
   text-align: right;
+  height: 50px;
 }
 
 .container .toolbar {

@@ -1,7 +1,7 @@
 import type {RouteRecordRaw} from "vue-router";
 
 // import Index from "../../views/Index.vue";
-import NotFound from "../../views/NotFound.vue";
+import NotFound from "../../views/common/NotFound.vue";
 import Test from "../../views/Test.vue";
 
 const commonRouter: Array<RouteRecordRaw> = [
@@ -12,7 +12,7 @@ const commonRouter: Array<RouteRecordRaw> = [
             title: '首页',
             requiresAuth: false,
         },
-        component: () => import('../../views/Index.vue'),
+        component: () => import('../../views/common/Index.vue'),
     },
     {
         // 用来匹配所有为找到的路由，放在pathMatch下

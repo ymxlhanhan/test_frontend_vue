@@ -1,7 +1,6 @@
 import axios, {type AxiosError, type AxiosInstance, type AxiosRequestConfig, type AxiosResponse} from "axios";
 import {ElMessage, ElMessageBox} from "element-plus";
 import {useUserStore} from "../store/global.ts";
-import TokenManager from "./tokenUtils.ts";
 
 // 定义需要返回的数据类型
 export interface ApiResponse<T = any> {
@@ -81,7 +80,7 @@ function handleHttpError(error: AxiosError): void {
                 type: 'warning',
             }).then(() => {
                 // 清除本地存储的 token，并跳转到登录页
-                TokenManager.removeToken();
+                useUserStore().logout();
                 window.location.href = '/login';
             });
             break;

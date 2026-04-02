@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import {reactive, ref} from "vue"
-import type {LoginForm, UserInfo} from "../types/userType.ts";
+import type {LoginForm} from "../../types/userType.ts";
 import {ElMessage, type FormInstance, type FormRules} from "element-plus";
-import {login} from "../api/login/login.ts";
-import {useRouteStore, useUserStore} from "../store/global.ts";
-import router from "../router";
+import {login} from "../../api/login/login.ts";
+import {useRouteStore, useUserStore} from "../../store/global.ts";
+import router from "../../router";
 
 
 // 创建初始响应式表单对象
@@ -56,6 +56,7 @@ const handleFormSubmit = (formEl: FormInstance | undefined) => {
         const response = await login(loginForm);
         userStore.setUserInfo(response.userInfo);
         userStore.setToken(response.token);
+        userStore.setState(true);
         // 成功返回首页
         ElMessage.success('登录成功');
         await router.replace(route.name || '/');
@@ -75,20 +76,21 @@ const handleFormSubmit = (formEl: FormInstance | undefined) => {
 
 <template>
   <!-- 登录 -->
-  <body class="box">
-    <el-form class="form" ref="loginFormRef" :rules="loginFormRules" :model="loginForm">
-      <el-form-item class="items" label="账号" prop="account">
-        <el-input v-model="loginForm.account" type="text" placeholder="请输入账号" autocomplete="off"/>
-      </el-form-item>
-      <el-form-item class="items" label="密码" prop="password">
-        <el-input v-model="loginForm.password" type="password" placeholder="请输入密码"/>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="handleFormSubmit(loginFormRef)">登录</el-button>
-        <el-button>注册</el-button>
-      </el-form-item>
-    </el-form>
-  </body>
+  <div class="box">
+      <el-form class="form" ref="loginFormRef" :rules="loginFormRules" :model="loginForm"
+               @keyup.enter="handleFormSubmit(loginFormRef)">
+        <el-form-item class="items" label="账号" prop="account">
+          <el-input v-model="loginForm.account" type="text" placeholder="请输入账号" autocomplete="off"/>
+        </el-form-item>
+        <el-form-item class="items" label="密码" prop="password">
+          <el-input v-model="loginForm.password" type="password" placeholder="请输入密码"/>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="handleFormSubmit(loginFormRef)">登录</el-button>
+          <el-button>注册</el-button>
+        </el-form-item>
+      </el-form>
+  </div>
 
 </template>
 
@@ -99,6 +101,7 @@ const handleFormSubmit = (formEl: FormInstance | undefined) => {
   height: 100vh;
   justify-content: center;
   align-items: center;
+
 }
 
 .form {

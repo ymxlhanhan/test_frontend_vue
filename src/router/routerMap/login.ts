@@ -2,7 +2,7 @@ import {type RouteRecordRaw} from "vue-router";
 
 
 // 登录
-import Login from "../../views/Login.vue";
+import Login from "../../views/common/Login.vue";
 
 
 /**

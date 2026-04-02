@@ -1,6 +1,8 @@
 import {defineStore} from "pinia";
 import type {UserInfo} from "../types/userType.ts";
 import TokenManager from "../utils/tokenUtils.ts";
+import {StoreTypes} from "../types/enum/storeEnums.ts";
+import UserInfoManager from "../utils/userUtils.ts";
 
 
 /**
@@ -9,13 +11,14 @@ import TokenManager from "../utils/tokenUtils.ts";
 export const useUserStore = defineStore("loginUserInfo", {
     // 初始值
     state: () => ({
-        userInfo: {} as UserInfo,
-        token: '',
-        state: false
+        userInfo: UserInfoManager.getUserInfo(),
+        token: TokenManager.getToken(StoreTypes.LOCAL) === null ? '' : TokenManager.getToken(StoreTypes.LOCAL),
+        state: TokenManager.getToken(StoreTypes.LOCAL) === null !== null
     }),
     actions: {
         setUserInfo(info: UserInfo) {
             this.userInfo = info;
+            UserInfoManager.setUserInfo(info);
         },
         setState(state: boolean) {
             this.state = state;

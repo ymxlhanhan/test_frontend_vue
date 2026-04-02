@@ -41,8 +41,6 @@ router.beforeEach((to, from, next) => {
     }
     // 如果token不为空，定时判断登录情况
     // console.log(useUserStore().nowUser.token);
-    console.log(from.name);
-    console.log(to.name);
     next ();
 });
 

@@ -1,31 +1,24 @@
+import {type StoreType, StoreTypes} from "../types/enum/storeEnums.ts";
 
 const TOKEN_KEY: string = 'token';
 
 
-
-export const TokenTypes = {
-    LOCAL: 'local',
-    SESSION: 'session',
-    MEMORY: 'memory',
-} as const;
-
-export type TokenType = typeof TokenTypes[keyof typeof TokenTypes];
 
 /**
  * token管理
  */
 class TokenManager {
     // 设置token
-    static setToken(token: string, type?: TokenType) {
+    static setToken(token: string, type?: StoreType) {
         if(!type) {
             localStorage.setItem(TOKEN_KEY, token);
             sessionStorage.setItem(TOKEN_KEY, token);
         } else {
             switch (type) {
-                case TokenTypes.LOCAL:
+                case StoreTypes.LOCAL:
                     localStorage.setItem(TOKEN_KEY, token);
                     break;
-                case TokenTypes.SESSION:
+                case StoreTypes.SESSION:
                     sessionStorage.setItem(TOKEN_KEY, token);
                     break;
                 // case TokenType.MEMORY:
@@ -36,11 +29,11 @@ class TokenManager {
     }
 
     // 获取token
-    static getToken(type: TokenType): string | null {
+    static getToken(type: StoreType): string | null {
         switch (type) {
-            case TokenTypes.LOCAL:
+            case StoreTypes.LOCAL:
                 return localStorage.getItem(TOKEN_KEY);
-            case TokenTypes.SESSION:
+            case StoreTypes.SESSION:
                 return sessionStorage.getItem(TOKEN_KEY);
             default:
                 return null;
@@ -48,16 +41,16 @@ class TokenManager {
     }
 
     // 清除token
-    static removeToken(type?: TokenType) {
+    static removeToken(type?: StoreType) {
         if (!type) {
             localStorage.removeItem(TOKEN_KEY);
             sessionStorage.removeItem(TOKEN_KEY);
         } else {
             switch (type) {
-                case TokenTypes.LOCAL:
+                case StoreTypes.LOCAL:
                     localStorage.removeItem(TOKEN_KEY);
                     break;
-                case TokenTypes.SESSION:
+                case StoreTypes.SESSION:
                     localStorage.removeItem(TOKEN_KEY);
                     break;
             }
@@ -66,7 +59,7 @@ class TokenManager {
 
     // 检查是否登录
     static isLogin(): boolean {
-        return !! this.getToken(TokenTypes.SESSION);
+        return !! this.getToken(StoreTypes.SESSION);
     }
 }
 
