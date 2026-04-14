@@ -3,6 +3,7 @@
 </script>
 
 <template>
+  
   <div>欢迎来到用户信息</div>
 </template>
 

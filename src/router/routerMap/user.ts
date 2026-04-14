@@ -1,7 +1,7 @@
 import type {RouteRecordRaw} from "vue-router";
 
 
-import UserInfo from "../../views/user/UserInfo.vue";
+import User from "../../views/user/User.vue";
 
 
 /**
@@ -9,13 +9,13 @@ import UserInfo from "../../views/user/UserInfo.vue";
  */
 const userRouter: Array<RouteRecordRaw> = [
     {
-        path: '/userInfo',
-        name: 'UserInfo',
+        path: '/user',
+        name: 'User',
         meta: {
             title: '用户信息',
-            requiresAuth: false,
+            requiresAuth: true,
         },
-        component: UserInfo
+        component: User
     }
 ];
 

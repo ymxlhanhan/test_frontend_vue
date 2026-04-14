@@ -2,11 +2,13 @@ import {createRouter, createWebHistory, type RouteRecordRaw} from "vue-router";
 import commonRouter from "./routerMap/commonRouter.ts";
 import loginRoutes from "./routerMap/login.ts";
 import {useRouteStore, useUserStore} from "../store/global.ts";
+import userRouter from "./routerMap/user.ts";
 // import {useUserStore} from "../store/global.ts";
 
 const routes: Array<RouteRecordRaw> = [
     ...commonRouter,
-    ...loginRoutes
+    ...loginRoutes,
+    ...userRouter
 ]
 
 const router = createRouter({

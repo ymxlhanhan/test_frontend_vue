@@ -14,7 +14,7 @@
             登录
           </el-link>
         </router-link>
-        <router-link v-if="isLogin" to="Login">
+        <router-link v-if="isLogin" to="User">
           <el-link type="primary" underline="never">
             用户
           </el-link>

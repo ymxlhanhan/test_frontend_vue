@@ -10,8 +10,16 @@ export interface LoginUserInfo {
     userInfo: UserInfo;
 }
 
-// 用户信息
+// 内存保存的用户信息
 export interface UserInfo {
     id: number;
     account: string;
+}
+
+// 用户详情的信息
+export interface User {
+    account: string;
+    userName: string;
+    userRole: string;
+    remark: string;
 }
